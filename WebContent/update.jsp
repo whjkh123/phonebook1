@@ -2,18 +2,17 @@
 
 <%@ page import="com.javaex.dao.PhoneDao"%>
 <%@ page import="com.javaex.vo.PersonVo"%>
-<%@ page import="java.util.List"%>
 
 <%
-	/* http://localhost:8088/phonebook1/insert.jsp?name=조경환&hp=010-6267-5935&company=02-2665-4439 */
 	String name = request.getParameter("name");
 	String hp = request.getParameter("hp");
 	String company = request.getParameter("company");
+	int personId = Integer.parseInt(request.getParameter("id"));
 	
-	PersonVo personVo = new PersonVo(name, hp, company);
+	PersonVo personVo = new PersonVo(personId, name, hp, company);
 	
 	PhoneDao phoneDao = new PhoneDao();
-	phoneDao.dbIsrt(personVo);
+	phoneDao.dbUpd(personVo);
 	
 	response.sendRedirect("./list.jsp");
 %>
@@ -22,8 +21,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Phone Book</title>
+<title>Insert title here</title>
 </head>
 <body>
+
 </body>
 </html>

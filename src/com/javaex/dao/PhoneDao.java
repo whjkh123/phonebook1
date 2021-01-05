@@ -92,8 +92,8 @@ public class PhoneDao {
 			String query = "";
 			query += " update person ";
 			query += " SET name = ?, ";
-			query += " hp = ?, ";
-			query += " company = ? ";
+			query += "     hp = ?, ";
+			query += "     company = ? ";
 			query += " WHERE person_id = ? ";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, pVo.getName());
@@ -210,10 +210,10 @@ public class PhoneDao {
 
 			while (rs.next()) {
 
-				int person_id = rs.getInt(1);// int person_id = rs.getInt(1);
-				String name = rs.getString(2);// String name = rs.getInt(2);
-				String hp = rs.getString(3);// String hp = rs.getInt(3);
-				String company = rs.getString(4);// String company = rs.getInt(4);
+				int person_id = rs.getInt(1);// int person_id = rs.getInt("person_id");
+				String name = rs.getString(2);// String name = rs.getInt("name");
+				String hp = rs.getString(3);// String hp = rs.getInt("hp");
+				String company = rs.getString(4);// String company = rs.getInt("company");
 
 				PersonVo pVo = new PersonVo(person_id, name, hp, company);
 
@@ -228,6 +228,44 @@ public class PhoneDao {
 		close();
 
 		return pList;
+
+	}
+
+	public PersonVo getPerson(int person_id) {
+
+		PersonVo personVo = null;
+
+		dbCnt();
+
+		try {
+			String query = "";
+			query += " SELECT 	person_id, ";
+			query += " 			name, ";
+			query += " 			hp, ";
+			query += " 			company ";
+			query += " FROM 	person ";
+			query += " WHERE 	person_id = ? ";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, person_id);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				int personId = rs.getInt("person_id");
+				String name = rs.getNString("name");
+				String hp = rs.getNString("hp");
+				String company = rs.getNString("company");
+
+				personVo = new PersonVo(person_id, name, hp, company);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		close();
+
+		return personVo;
 
 	}
 

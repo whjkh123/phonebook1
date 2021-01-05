@@ -18,6 +18,7 @@
 		이름(name): <input type="text" name="name"><br>
 		핸드폰(hp): <input type="text" name="hp"><br>
 		회사(company): <input type="text" name="company"><br>
+		
 		<button type="submit">등록</button>
 	</form>
 	
